@@ -49,7 +49,7 @@
     - `state` 状态枚举值
     - `count` 会议参与者数量
 
-### 浏览器器提供的 RPC
+### 浏览器提供的 RPC
 用于接收来自服务器的会议/会叫状态变化通知。
 
 #### 会议创建通知
@@ -95,7 +95,7 @@
 - `confid` 一个由4-8位数字组成的标识符。
 - `deltime` 会议被删除时间，格式yyyymmddhhmiss。
 
-### 解散会议操作结果通知
+#### 解散会议操作结果通知
 执行解散会议命令后的操作结果回调通知。
 
 `void OnConfDismiss(string confid, int status)`
