@@ -1,0 +1,16 @@
+{
+  "name": "confapplet",
+  "description": "基于[云通讯](http://yuntongxun.com)的简单电话会议小应用**DEMO**程序。",
+  "main": "index.js",
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components/",
+    "test",
+    "tests"
+  ]
+}

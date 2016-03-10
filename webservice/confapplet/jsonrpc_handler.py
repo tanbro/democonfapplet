@@ -18,7 +18,7 @@ __all__ = ['handler']
 async def handler(request):
     logger = logging.getLogger(__name__)
     ws = None
-    client_id = 1  # 测试嘛，只允许一个WS连接！！！
+    client_id = None
     try:
         client_id = request.match_info['client_id']
         if client_id in request.app['websocket_clients']:
@@ -76,7 +76,10 @@ async def handler(request):
                     except Exception as exc:
                         logger.exception('JSON-RPC executing error')
                         if (not parsed.stub.is_notification) and parsed.id:
-                            send_text = jsonrpc.InternalError(parsed.id, str(exc)).json_string
+                            send_text = jsonrpc.InternalError(
+                                parsed.id,
+                                '{}: "{}"'.format(exc.__class__.__name__, exc)
+                            ).json_string
                 # Response Incoming
                 elif isinstance(parsed, jsonrpc.Response):
                     # TODO: Incoming Response

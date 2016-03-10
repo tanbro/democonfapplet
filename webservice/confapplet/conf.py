@@ -24,6 +24,11 @@ LOGGING_CONFIG = {
             'console',
         ],
     },
+    'loggers': {
+        'asyncio': {
+            'level': 'DEBUG',
+        },
+    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',

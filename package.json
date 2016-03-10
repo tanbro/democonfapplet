@@ -1,0 +1,23 @@
+{
+  "name": "confapplet",
+  "version": "1.0.0",
+  "description": "基于[云通讯](http://yuntongxun.com)的简单电话会议小应用**DEMO**程序。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanbro/democonfapplet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanbro/democonfapplet/issues"
+  },
+  "homepage": "https://github.com/tanbro/democonfapplet#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-server": "^0.1.0"
+  }
+}

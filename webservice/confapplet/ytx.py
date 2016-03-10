@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
 
+import logging
 from io import BytesIO, StringIO
 from hashlib import md5
 from base64 import b64encode
 from datetime import datetime
+from http import HTTPStatus
 import xml.etree.ElementTree as ETree
 
 import aiohttp
@@ -11,9 +13,24 @@ import aiohttp
 from . import conf
 
 
+class RestHttpError(Exception):
+    def __init__(self, status, reason=''):
+        super(Exception, self).__init__('{} Restful API Error [{}]: {}'.format(conf.YTX_URL_PREFIX, code, message))
+        self._status = int(status)
+        self._reason = str(reason)
+
+    @property
+    def status(self):
+        return self._status
+
+    @property
+    def reason(self):
+        return self._reason
+
+
 class RestApiError(Exception):
     def __init__(self, code, message=''):
-        super(Exception, self).__init__('{}: {}'.format(code, message))
+        super(Exception, self).__init__('{} Restful API Error [{}]: {}'.format(conf.YTX_URL_PREFIX, code, message))
         self._code = int(code)
         self._message = str(message)
 
@@ -73,8 +90,7 @@ def ivr_resp_to_dict(et):
 
 
 async def ivr_invoke(func_des, command, func='ivr', app_id=None, account_sid=None, auth_type=None, auth_token=None,
-                     params=None,
-                     **kwargs):
+                     params=None, timeout=15, **kwargs):
     app_id = app_id or conf.YTX_APP_ID
     account_sid = account_sid or conf.YTX_ACCOUNT_SID
     auth_type = auth_type or 'Accounts'
@@ -107,13 +123,25 @@ async def ivr_invoke(func_des, command, func='ivr', app_id=None, account_sid=Non
         data = fs.getvalue()
     finally:
         fs.close()
+    resp_txt = ''
     with aiohttp.ClientSession() as session:
-        async with session.post(url, headers=headers, params=params, data=data) as resp:
-            s = await resp.text()
-            fs = StringIO(s)
-            try:
-                tree = ETree.parse(StringIO(s))
-            finally:
-                fs.close()
-            raise_if_error(tree)
-            return ivr_resp_to_dict(tree)
+        with aiohttp.Timeout(timeout):
+            async with session.post(url, headers=headers, params=params, data=data) as resp:
+                if not resp.status == HTTPStatus.OK:
+                    try:
+                        reason = HTTPStatus(resp.status).phrase
+                    except:
+                        reason = ''
+                    raise RestHttpError(status=resp.status, reason=reason)
+                resp_txt = await resp.text()
+    fs = StringIO(resp_txt)
+    try:
+        tree = ETree.parse(fs)
+    finally:
+        fs.close()
+    raise_if_error(tree)
+    return ivr_resp_to_dict(tree)
+
+
+def get_logger():
+    return logging.getLogger(__name__)

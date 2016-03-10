@@ -26,7 +26,7 @@ def start_server(loop):
     application = web.Application(loop=loop)
     application['websocket_clients'] = dict()
     application.on_shutdown.append(shutdown_websocket)
-    application.router.add_route('GET', '/{client_id}', jsonrpc_handler.handler)
+    application.router.add_route('GET', '/client/{client_id}', jsonrpc_handler.handler)
     handler = application.make_handler()
     fut = loop.create_server(handler, conf.HTTP_ADDRESS, conf.HTTP_PORT)
     server = loop.run_until_complete(fut)
