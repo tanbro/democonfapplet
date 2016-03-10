@@ -1,231 +1,254 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
-<style>
-* {
-	font-size: 100%;
-	margin: 0;
-	outline: 0 none;
-	padding: 0;
-}
-a {
-	text-decoration: none;
-}
-html {
-	font-size: 100%;
-	height: 100%;
-}
-body {
-	font-family: "微软雅黑";
-	font-size: 18px;
-	height: 100%;
-	line-height: 1.5;
-	margin: 0;
-	min-height: 100%;
-	padding: 0;
-	position: relative;
-	width: 100%;
-	font-weight: lighter;
-}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <style>
+        * {
+            font-size: 100%;
+            margin: 0;
+            outline: 0 none;
+            padding: 0;
+        }
 
-.active_kopia {
-	border-radius: 6px;
-	background-image: -moz-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -webkit-linear-gradient( 90deg,rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -ms-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	box-shadow: 0px 1px 2px 0px rgb( 200, 200, 200 );
-	width: 265px;
-	display: block;
-	margin-right: auto;
-	margin-left: auto;
-	padding: 10px;
-	font-size: 16px;
-	height: 345px;
-}
+        a {
+            text-decoration: none;
+        }
 
-.h2{
-	text-align: center;
-	line-height: 40px;
-	font-weight: bold;
-}
-.btn_box{
-	overflow: hidden;
-	height: 100px;
-}
-.btn_a{
-	border-radius: 6px;
-	background-image: -moz-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -webkit-linear-gradient( 90deg,rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -ms-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	box-shadow: 0px 1px 2px 0px rgb( 200, 200, 200 );
-	width: 120px;
-	display: block;
-	font-size: 16px;
-	height: 40px;
-	float: left;
-	margin-bottom: 8px;
-}
-.btn_a a{
-	display: block;
-	line-height: 40px;
-	text-align: center;
-	background-image: url(img/icon1.png);
-	background-repeat: no-repeat;
-	background-position: 8px center;
-	padding-left: 22px;
-	color: #666;
-	text-decoration: none;
-}
+        html {
+            font-size: 100%;
+            height: 100%;
+        }
 
-.btn_b{
-	border-radius: 6px;
-	background-image: -moz-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -webkit-linear-gradient( 90deg,rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -ms-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	box-shadow: 0px 1px 2px 0px rgb( 200, 200, 200 );
-	width: 120px;
-	display: block;
-	font-size: 16px;
-	height: 40px;
-	float: right;
-	margin-bottom: 8px;
-}
-.btn_b a{
-	display: block;
-	line-height: 40px;
-	text-align: center;
-	background-image: url(img/icon2.png);
-	background-repeat: no-repeat;
-	background-position: 8px center;
-	padding-left: 22px;
-	color: #666;
-	text-decoration: none;
-}
-.btn_c{
-	border-radius: 6px;
-	background-image: -moz-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -webkit-linear-gradient( 90deg,rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -ms-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	box-shadow: 0px 1px 2px 0px rgb( 200, 200, 200 );
-	width: 120px;
-	display: block;
-	font-size: 16px;
-	height: 40px;
-	float: left;
-	margin-bottom: 8px;
-}
-.btn_c a{
-	display: block;
-	line-height: 40px;
-	text-align: center;
-	background-image: url(img/icon3.png);
-	background-repeat: no-repeat;
-	background-position: 8px center;
-	padding-left: 22px;
-	color: #666;
-	text-decoration: none;
-}
+        body {
+            font-family: "微软雅黑";
+            font-size: 18px;
+            height: 100%;
+            line-height: 1.5;
+            margin: 0;
+            min-height: 100%;
+            padding: 0;
+            position: relative;
+            width: 100%;
+            font-weight: lighter;
+        }
 
-.btn_d{
-	border-radius: 6px;
-	background-image: -moz-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -webkit-linear-gradient( 90deg,rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	background-image: -ms-linear-gradient( 90deg, rgb(250,250,250) 0%, rgb(255,255,255) 100%);
-	box-shadow: 0px 1px 2px 0px rgb( 200, 200, 200 );
-	width: 120px;
-	display: block;
-	font-size: 16px;
-	height: 40px;
-	float: right;
-	margin-bottom: 8px;
-}
-.btn_d a{
-	display: block;
-	line-height: 40px;
-	text-align: center;
-	background-image: url(img/icon4.png);
-	background-repeat: no-repeat;
-	background-position: 8px center;
-	padding-left: 22px;
-	color: #666;
-	text-decoration: none;
-}
-.h3{
-	font-size: 16px;
-	text-align: center;
-	color: #0588d3;
-	line-height: 35px;
-}
-.user_box{
-	height: 160px;
-	overflow-y: scroll;
-}
-.show{
-	overflow: hidden;
-	margin-bottom: 10px;
-}
-.user{
-	line-height: 30px;
-	background-image: url(img/user.png);
-	background-repeat: no-repeat;
-	background-position: left center;
-	font-size: 14px;
-	float: left;
-	padding-left: 30px;
-	width: 140px;
-	overflow: hidden;
-	height: 30px;
-}
-.user span{
-	color: #999;
-}
-.user_r{
-	float: right;
-}
-.user_r img{
-	margin-right: 5px;
-}
-</style>
+        .active_kopia {
+            border-radius: 6px;
+            background-image: -moz-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -webkit-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -ms-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            box-shadow: 0px 1px 2px 0px rgb(200, 200, 200);
+            width: 265px;
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 10px;
+            font-size: 16px;
+            height: 345px;
+        }
+
+        .h2 {
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+        }
+
+        .btn_box {
+            overflow: hidden;
+            height: 100px;
+        }
+
+        .btn_a {
+            border-radius: 6px;
+            background-image: -moz-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -webkit-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -ms-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            box-shadow: 0px 1px 2px 0px rgb(200, 200, 200);
+            width: 120px;
+            display: block;
+            font-size: 16px;
+            height: 40px;
+            float: left;
+            margin-bottom: 8px;
+        }
+
+        .btn_a a {
+            display: block;
+            line-height: 40px;
+            text-align: center;
+            background-image: url(img/icon1.png);
+            background-repeat: no-repeat;
+            background-position: 8px center;
+            padding-left: 22px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .btn_b {
+            border-radius: 6px;
+            background-image: -moz-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -webkit-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -ms-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            box-shadow: 0px 1px 2px 0px rgb(200, 200, 200);
+            width: 120px;
+            display: block;
+            font-size: 16px;
+            height: 40px;
+            float: right;
+            margin-bottom: 8px;
+        }
+
+        .btn_b a {
+            display: block;
+            line-height: 40px;
+            text-align: center;
+            background-image: url(img/icon2.png);
+            background-repeat: no-repeat;
+            background-position: 8px center;
+            padding-left: 22px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .btn_c {
+            border-radius: 6px;
+            background-image: -moz-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -webkit-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -ms-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            box-shadow: 0px 1px 2px 0px rgb(200, 200, 200);
+            width: 120px;
+            display: block;
+            font-size: 16px;
+            height: 40px;
+            float: left;
+            margin-bottom: 8px;
+        }
+
+        .btn_c a {
+            display: block;
+            line-height: 40px;
+            text-align: center;
+            background-image: url(img/icon3.png);
+            background-repeat: no-repeat;
+            background-position: 8px center;
+            padding-left: 22px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .btn_d {
+            border-radius: 6px;
+            background-image: -moz-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -webkit-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            background-image: -ms-linear-gradient(90deg, rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+            box-shadow: 0px 1px 2px 0px rgb(200, 200, 200);
+            width: 120px;
+            display: block;
+            font-size: 16px;
+            height: 40px;
+            float: right;
+            margin-bottom: 8px;
+        }
+
+        .btn_d a {
+            display: block;
+            line-height: 40px;
+            text-align: center;
+            background-image: url(img/icon4.png);
+            background-repeat: no-repeat;
+            background-position: 8px center;
+            padding-left: 22px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .h3 {
+            font-size: 16px;
+            text-align: center;
+            color: #0588d3;
+            line-height: 35px;
+        }
+
+        .user_box {
+            height: 160px;
+            overflow-y: scroll;
+        }
+
+        .show {
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .user {
+            line-height: 30px;
+            background-image: url(img/user.png);
+            background-repeat: no-repeat;
+            background-position: left center;
+            font-size: 14px;
+            float: left;
+            padding-left: 30px;
+            width: 140px;
+            overflow: hidden;
+            height: 30px;
+        }
+
+        .user span {
+            color: #999;
+        }
+
+        .user_r {
+            float: right;
+        }
+
+        .user_r img {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 
 <body>
 <div class="active_kopia">
-<div class="h2">管理电话会议</div>
-<div class="btn_box">
-<div class="btn_a"><a href="#">全部静音</a></div>
-<div class="btn_b"><a href="#">邀请参加</a></div>
-<div style="clear:both"></div>
-<div class="btn_c"><a href="#">开始录音</a></div>
-<div class="btn_d"><a href="#">停止会议</a></div>
-</div>
+    <div class="h2">管理电话会议</div>
+    <div class="btn_box">
+        <div class="btn_a"><a href="#">全部静音</a></div>
+        <div class="btn_b"><a href="#">邀请参加</a></div>
+        <div style="clear:both"></div>
+        <div class="btn_c"><a href="#">开始录音</a></div>
+        <div class="btn_d"><a href="#">停止会议</a></div>
+    </div>
 
-<div class="h3">当前在线</div>
-<div class="show">
-<div class="user_box">
-<div class="show">
-<div class="user">叶涛<span>(总协调人)</span></div>
-<div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a><a href="#" title="挂断"><img src="img/off.png" width="28" height="27" /></a></div>
-</div>
-<div class="show">
-<div class="user">叶涛<span>(总协调人)</span></div>
-<div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a><a href="#" title="挂断"><img src="img/off.png" width="28" height="27" /></a></div>
-</div>
-<div class="show">
-<div class="user">叶涛<span>(总协调人)</span></div>
-<div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a><a href="#" title="挂断"><img src="img/off.png" width="28" height="27" /></a></div>
-</div>
-<div class="show">
-<div class="user">叶涛<span>(总协调人)</span></div>
-<div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a><a href="#" title="挂断"><img src="img/off.png" width="28" height="27" /></a></div>
-</div>
-<div class="show">
-<div class="user">叶涛<span>(总协调人)</span></div>
-<div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a><a href="#" title="挂断"><img src="img/off.png" width="28" height="27" /></a></div>
-</div>
-</div>
-</div>
+    <div class="h3">当前在线</div>
+    <div class="show">
+        <div class="user_box">
+            <div class="show">
+                <div class="user">叶涛<span>(总协调人)</span></div>
+                <div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27"/></a><a
+                        href="#" title="挂断"><img src="img/off.png" width="28" height="27"/></a></div>
+            </div>
+            <div class="show">
+                <div class="user">叶涛<span>(总协调人)</span></div>
+                <div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27"/></a><a
+                        href="#" title="挂断"><img src="img/off.png" width="28" height="27"/></a></div>
+            </div>
+            <div class="show">
+                <div class="user">叶涛<span>(总协调人)</span></div>
+                <div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27"/></a><a
+                        href="#" title="挂断"><img src="img/off.png" width="28" height="27"/></a></div>
+            </div>
+            <div class="show">
+                <div class="user">叶涛<span>(总协调人)</span></div>
+                <div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27"/></a><a
+                        href="#" title="挂断"><img src="img/off.png" width="28" height="27"/></a></div>
+            </div>
+            <div class="show">
+                <div class="user">叶涛<span>(总协调人)</span></div>
+                <div class="user_r"><a href="#" title="静音"><img src="img/add.png" width="28" height="27"/></a><a
+                        href="#" title="挂断"><img src="img/off.png" width="28" height="27"/></a></div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
