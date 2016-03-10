@@ -28,7 +28,7 @@ LOGGING_CONFIG = {
     },
     'loggers': {
         'asyncio': {
-            'level': 'DEBUG',
+            'level': 'WARN',
         },
     },
     'handlers': {
