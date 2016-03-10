@@ -13,9 +13,9 @@ import aiohttp
 from . import conf
 
 
-class RestHttpError(Exception):
+class HttpError(Exception):
     def __init__(self, status, reason=''):
-        super(Exception, self).__init__('{} Restful API Error [{}]: {}'.format(conf.YTX_URL_PREFIX, code, message))
+        super(Exception, self).__init__('{} HTTP Error [{}]: {}'.format(conf.YTX_URL_PREFIX, status, reason))
         self._status = int(status)
         self._reason = str(reason)
 
@@ -132,7 +132,7 @@ async def ivr_invoke(func_des, command, func='ivr', app_id=None, account_sid=Non
                         reason = HTTPStatus(resp.status).phrase
                     except:
                         reason = ''
-                    raise RestHttpError(status=resp.status, reason=reason)
+                    raise HttpError(status=resp.status, reason=reason)
                 resp_txt = await resp.text()
     fs = StringIO(resp_txt)
     try:
