@@ -15,7 +15,7 @@ from . import conf
 
 class HttpError(Exception):
     def __init__(self, status, reason=''):
-        super(Exception, self).__init__('{} HTTP Error [{}]: {}'.format(conf.YTX_URL_PREFIX, status, reason))
+        super().__init__('{} HTTP Error [{}]: {}'.format(conf.YTX_URL_PREFIX, status, reason))
         self._status = int(status)
         self._reason = str(reason)
 
@@ -30,7 +30,7 @@ class HttpError(Exception):
 
 class RestApiError(Exception):
     def __init__(self, code, message=''):
-        super(Exception, self).__init__('{} Restful API Error [{}]: {}'.format(conf.YTX_URL_PREFIX, code, message))
+        super().__init__('{} Restful API Error [{}]: {}'.format(conf.YTX_URL_PREFIX, code, message))
         self._code = int(code)
         self._message = str(message)
 
