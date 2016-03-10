@@ -1,6 +1,8 @@
 HTTP_ADDRESS = '0.0.0.0'
 HTTP_PORT = 8080
 
+STATIC_PATH = '../webapp'
+
 YTX_URL_PREFIX = 'https://sandboxapp.cloopen.com:8883/2013-12-26'
 
 YTX_ACCOUNT_SID = 'aaf98f895350b68801535915c40e0e5c'
