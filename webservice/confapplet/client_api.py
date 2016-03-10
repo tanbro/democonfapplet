@@ -1,9 +1,6 @@
-import asyncio
-
-from aiohttp import web
-
 from . import jsonrpc
 from .utils import *
+from . import ytx
 
 RpcAction = jsonrpc.ServerStub.rpc_class
 
@@ -11,4 +8,5 @@ RpcAction = jsonrpc.ServerStub.rpc_class
 @RpcAction()
 class CreateConf(BaseRpcImpl, LoggerMixin):
     async def execute(self):
-        pass
+        res = ytx.ivr_invoke('createconf', 'CreateConf')
+        return res['confid']

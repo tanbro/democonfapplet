@@ -20,20 +20,16 @@ async def handler(request):
     ws = None
     client_id = 1  # 测试嘛，只允许一个WS连接！！！
     try:
+        client_id = request.match_info['client_id']
         if client_id in request.app['websocket_clients']:
-            raise web.HTTPConflict(text='测试嘛，只允许一个WS连接！')
+            raise web.HTTPConflict()
         request.app['websocket_clients'][client_id] = ws
         # 建立 WebSocket 连接!
         ws = web.WebSocketResponse()
         await ws.prepare(request)
         # websocket UPDATE 完成！
         async for msg in ws:
-            if msg.tp == MsgType.pong:
-                ws.send_str('PONG!')
-            elif msg.tp == MsgType.ping:
-                ws.send_str('PING!')
-            # Text Message
-            elif msg.tp == MsgType.text:
+            if msg.tp == MsgType.text:
                 # parse JSON-RPC in an executor, then async wait for the result
                 parsed = None
                 send_text = ''
