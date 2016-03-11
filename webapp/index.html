@@ -291,17 +291,19 @@ em {
   <div class="h3">当前在线</div>
   <div class="show">
     <div class="user_box">
-      <div class="show">
-        <div class="user">
-          <label for="textfield"></label>
-          <input name="textfield" disabled="disabled" class="text" id="textfield" type="text" readonly="readonly" placeholder="赵永刚">
-        </div>
-        <div class="user_r">
-          <div class="on" data-num="0"><a href="#">播打</a></div>
-          <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
-      </div>
 
-
+        <div class="show">
+            <div class="user">
+                <ul class="reg-box">
+                    <li>
+                        <input type="text" placeholder="请输入手机号" value="赵永刚"  disabled  class="phone text" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="user_r">
+                <div class="on"><a href="#">拨打</a></div>
+                <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
+        </div>
       <div class="show">
         <div class="user">
           <ul class="reg-box">
@@ -311,7 +313,7 @@ em {
           </ul>
         </div>
         <div class="user_r">
-          <div class="on"><a href="#">播打</a></div>
+          <div class="on"><a href="#">拨打</a></div>
           <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
       </div>
       <div class="show">
@@ -323,7 +325,7 @@ em {
           </ul>
         </div>
         <div class="user_r">
-          <div class="on"><a href="#">播打</a></div>
+          <div class="on"><a href="#">拨打</a></div>
           <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
       </div>
       <div class="show">
@@ -335,7 +337,7 @@ em {
           </ul>
         </div>
         <div class="user_r">
-          <div class="on"><a href="#">播打</a></div>
+          <div class="on"><a href="#">拨打</a></div>
           <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
       </div>
       <div class="show">
@@ -347,7 +349,7 @@ em {
           </ul>
         </div>
         <div class="user_r">
-          <div class="on"><a href="#">播打</a></div>
+          <div class="on"><a href="#">拨打</a></div>
           <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
       </div>
 
@@ -374,6 +376,7 @@ em {
 			return;
 		}
 		var phone=$(this).parent().parent().find('input').val();
+        if('赵永刚'==phone){phone='13971001064';}
 		if(!phone||''==phone||'请输入手机号'==phone||!confid){return;}
 		$(this).addClass("on1");
 		$(this).parent().parent().find('input').attr('readonly','readonly');
