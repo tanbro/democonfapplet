@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from __future__ import with_statement
+from __future__ import with_statement, print_function
 
 import os.path
 from time import sleep
@@ -58,7 +58,10 @@ def deploy(branch='master'):
         local('bower install --allow-root')
     with nested(lcd('%s/webservice' % dest_dir), prefix('source %s/bin/activate' % venv_dir)):
         print('kill current process')
-        local('pkill -f confapplet')
-        sleep(5)
+        try:
+            local('pkill -f confapplet')
+            sleep(5)
+        except Exception as err:
+            print('WARN: %s' % err)
         print('start web service program')
         local('nohup python -m confapplet > /dev/null 2>&1 &')
