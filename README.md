@@ -1,6 +1,6 @@
 # confapplet
 
-基于[云通讯](http://yuntongxun.com)的简单电话会议小应用**DEMO**程序。
+基于[云通讯](http://yuntongxun.com)的简单电话会议小应用**DEMO**程序
 
 **注意: 只是DEMO！**
 
