@@ -379,29 +379,28 @@ em {
 		myobj.params=[confid,phone];
 		doSend(JSON.stringify(myobj));
 	});
-$(".h2").click(function(){
-$(".pop").toggle(100);
-$(this).toggleClass("h21");
-});
-$('.btn_d a').click(function(){
-	if(!confid){return;}
-	myobj.method='DismissConf';
-	myobj.params=[confid];
-    doSend(JSON.stringify(myobj));
-		
-});
-   
-	setInterval(function(){ $(".on1").each(function(index, element) {
-        var mydatanum=parseInt($(this).attr('data-num'));
-		alert(mydatanum);
-        if(mydatanum){
-            $(this).attr('data-num',--mydatanum);
-        }else{
-            $(this).removeClass("on1");
-            $(this).find('div').html('挂断');
-            $(this).addClass("on2");
-            $(this).attr('data-num',0);
-        }
+	$(".h2").click(function(){
+		$(".pop").toggle(100);
+		$(this).toggleClass("h21");
+	});
+	$('.btn_d a').click(function(){
+		if(!confid){return;}
+		myobj.method='DismissConf';
+		myobj.params=[confid];
+		doSend(JSON.stringify(myobj));
+			
+	});
+	setInterval(function(){ 
+		$(".on1").each(function(index, element) {
+			var mydatanum=parseInt($(this).attr('data-num'));
+			if(mydatanum){
+				$(this).attr('data-num',--mydatanum);
+			}else{
+				$(this).removeClass("on1");
+				$(this).find('div').html('挂断');
+				$(this).addClass("on2");
+				$(this).attr('data-num',0);
+			}
     });},1000);
     function init() {
         console.log(wsUri);
@@ -409,7 +408,6 @@ $('.btn_d a').click(function(){
     }
     function testWebSocket() {
         websocket = new WebSocket(wsUri);
-
         websocket.onopen = function(evt) {
             onOpen(evt) 
         };
@@ -427,16 +425,12 @@ $('.btn_d a').click(function(){
         websocket.onerror = function(evt) { 
             onError(evt) 
         };
-
-
     }  
- 
     function onOpen(evt) {
         console.log("CONNECTED");
         myobj.method='CreateConf';
         doSend(JSON.stringify(myobj));
     }  
- 
     function onClose(evt) {
         console.log("DISCONNECTED");
         websocket.close();
@@ -445,13 +439,11 @@ $('.btn_d a').click(function(){
     function onMessage(evt) {
         console.log("RESPONSE:" + evt.data);
         return evt.data;
-        //websocket.close();
     }  
  
     function onError(evt) {
         console.log("ERROR:" + evt.data);
     }  
- 
     function doSend(message) {
         myreturn='';
         console.log("SENT: " + message);
