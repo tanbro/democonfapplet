@@ -362,6 +362,9 @@ em {
     var confid=0;
 	$(".on").click(function(){
 		if($(this).parent().parent().find('input').attr('readonly')=='readonly'){
+            $(this).parent().parent().find('input').attr('readonly',false);
+            $(this).removeClass("on2");
+            $(this).find('div').html('拨打');
 			/*挂断*/
 			return;
 			if(!confid){return;}
