@@ -38,13 +38,13 @@ def deploy(branch='master', restarting=True):
         run('rm -f %s' % export_file)
     with nested(cd(dest_dir), prefix('source %s/bin/activate' % venv_dir)):
         with settings(warn_only=True):
-            print('install pip pacakges')
+            print('install pip packages')
             run('pip install --upgrade -r requirements.txt')
     with cd(dest_dir):
         with settings(warn_only=True):
-            print('install npm pacakges')
+            print('install npm packages')
             run('npm install')
-            print('bower npm pacakges')
+            print('install bower packages')
             env['CI'] = 'true'
             run('bower install --allow-root')
     if restarting:
