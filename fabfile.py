@@ -6,7 +6,7 @@ import os.path
 from time import sleep
 from contextlib import nested
 
-from fabric.api import local, settings, lcd, env, prefix
+from fabric.api import run, settings, cd, env, prefix
 from fabric.contrib.console import confirm
 
 proj_name = 'confapplet'
@@ -17,50 +17,52 @@ venv_dir = '%s/env' % dest_dir
 
 def init():
     with settings(warn_only=True):
-        if local('test -d %s' % code_dir).failed:
+        if run('test -d %s' % code_dir).failed:
             if confirm('克隆版本库到 %s？' % code_dir):
-                local('git clone https://github.com/tanbro/democonfapplet.git %s' % code_dir)
-        if local('test -d %s' % dest_dir).failed:
-            local('mkdir -p %s' % dest_dir)
-        if local('test -d %s' % venv_dir).failed:
-            local('python3.5 -m venv %s' % venv_dir)
+                run('git clone https://github.com/tanbro/democonfapplet.git %s' % code_dir)
+        if run('test -d %s' % dest_dir).failed:
+            run('mkdir -p %s' % dest_dir)
+        if run('test -d %s' % venv_dir).failed:
+            run('python3.5 -m venv %s' % venv_dir)
 
 
-def deploy(branch='master'):
-    with lcd(code_dir):
-        local('git fetch')
-        local('git checkout --force %s' % branch)
-        local('git reset --hard origin/%s' % branch)
-        githash = local('git log -n 1 --pretty=%h', capture=True).stdout
-        gittag = local('git tag -l --contains HEAD', capture=True).stdout
-        gitdate = local('git log -n 1 --pretty=%ai', capture=True).stdout
-        tmpfile = '%s-%s-%s.tar' % (proj_name, branch, githash)
-        tmpfile = tmpfile.replace('/', '_')
-        local('git archive --format=tar --output=%s HEAD' % tmpfile)
-        try:
-            local('mkdir -p %s' % dest_dir)
-            local('tar -xf %s -C %s' % (tmpfile, dest_dir))
-        finally:
-            local('rm -f %s' % tmpfile)
-        with open(os.path.join(dest_dir, 'version.txt'), 'w') as f:
-            f.write('branch: %s\n' % branch)
-            f.write('hash: %s\n' % githash)
-            f.write('date: %s\n' % gitdate)
-            f.write('tag: %s\n' % gittag)
-    with nested(lcd(dest_dir), prefix('source %s/bin/activate' % venv_dir)):
+def deploy(branch='master', restarting=True):
+    with cd(code_dir):
+        run('git fetch')
+        run('git checkout --force %s' % branch)
+        run('git reset --hard origin/%s' % branch)
+        export_file = '%s-%s.tar' % (proj_name, branch)
+        run('git archive --format=tar --output=%s HEAD' % export_file)
+        run('mkdir -p %s' % dest_dir)
+        run('tar -xf %s -C %s' % (export_file, dest_dir))
+        run('rm -f %s' % export_file)
+    with nested(cd(dest_dir), prefix('source %s/bin/activate' % venv_dir)):
         with settings(warn_only=True):
             print('install pip pacakges')
-            local('pip install --upgrade -r requirements.txt')
-    with lcd(dest_dir):
+            run('pip install --upgrade -r requirements.txt')
+    with cd(dest_dir):
         with settings(warn_only=True):
             print('install npm pacakges')
-            local('npm install')
+            run('npm install')
             print('bower npm pacakges')
             env['CI'] = 'true'
-            local('bower install --allow-root')
-    with nested(lcd('%s/webservice' % dest_dir), prefix('source %s/bin/activate' % venv_dir)):
+            run('bower install --allow-root')
+    if restarting:
+        restart()
+
+
+def start():
+    with nested(cd('%s/webservice' % dest_dir), prefix('source %s/bin/activate' % venv_dir)):
+        run('$(nohup python -m confapplet >& /dev/null < /dev/null &) && sleep 5')
+
+
+def stop():
+    with nested(cd('%s/webservice' % dest_dir), prefix('source %s/bin/activate' % venv_dir)):
         with settings(warn_only=True):
-            local('pkill -f confapplet')
-            sleep(5)
-        print('start web service program')
-        local('nohup python -m confapplet > /dev/null 2>&1 &')
+            run('pkill -f confapplet')
+            run('sleep 5')
+
+
+def restart():
+    stop()
+    start()
