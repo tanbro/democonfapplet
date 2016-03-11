@@ -297,14 +297,16 @@ em {
           <input name="textfield" disabled="disabled" class="text" id="textfield" type="text" readonly="readonly" placeholder="赵永刚">
         </div>
         <div class="user_r">
-          <div class="on"><a href="#">播打</a></div>
+          <div class="on" data-num="0"><a href="#">播打</a></div>
           <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
       </div>
+
+
       <div class="show">
         <div class="user">
           <ul class="reg-box">
             <li>
-              <input type="text" value="请输入手机号" class="phone text" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
+              <input type="text" placeholder="请输入手机号"   class="phone text" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
             </li>
           </ul>
         </div>
@@ -316,109 +318,146 @@ em {
         <div class="user">
           <ul class="reg-box">
             <li>
-              <input type="text" value="请输入手机号" class="phone text" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
+              <input type="text" placeholder="请输入手机号"   class="phone text" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
             </li>
           </ul>
         </div>
         <div class="user_r">
-          <div class="on2"><a href="#">挂机</a></div>
+          <div class="on"><a href="#">播打</a></div>
           <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
       </div>
       <div class="show">
         <div class="user">
           <ul class="reg-box">
             <li>
-              <input type="text" value="请输入手机号" class="phone text" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
+              <input type="text" placeholder="请输入手机号"   class="phone text" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
             </li>
           </ul>
         </div>
         <div class="user_r">
-          <div class="on"><a href="#">挂机</a></div>
+          <div class="on"><a href="#">播打</a></div>
           <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
       </div>
       <div class="show">
         <div class="user">
           <ul class="reg-box">
             <li>
-              <input type="text" value="请输入手机号" class="phone text" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
+              <input type="text" placeholder="请输入手机号"   class="phone text" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
             </li>
           </ul>
         </div>
         <div class="user_r">
-          <div class="on"><a href="#">挂机</a></div>
+          <div class="on"><a href="#">播打</a></div>
           <a href="#" title="静音"><img src="img/add.png" width="28" height="27" /></a></div>
       </div>
+
     </div>
   </div>
 </div>
 </div>
 
 <script>
-$(".on").click(function(){
-$(this).toggleClass("on1");
-});
+	var wsUri ="ws://120.25.73.183:8080/api/client/42368";
+    var myobj={jsonrpc:'2.0', id:'42368',method:'',params:[]};
+    var confid=0;
+	$(".on").click(function(){
+		if($(this).parent().parent().find('input').attr('readonly')=='readonly'){
+			/*挂断*/
+			return;
+			if(!confid){return;}
+			myobj.method='QuitConf';
+			myobj.params=[confid,xxx];
+			doSend(JSON.stringify(myobj));
+			return;
+		}
+		var phone=$(this).parent().parent().find('input').val();
+		if(!phone||''==phone||'请输入手机号'==phone||!confid){return;}
+		$(this).addClass("on1");
+		$(this).parent().parent().find('input').attr('readonly','readonly');
+		$(this).attr('data-num',parseInt(10*Math.random()));
+		myobj.method='InviteJoinConf';
+		myobj.params=[confid,phone];
+		doSend(JSON.stringify(myobj));
+	});
 $(".h2").click(function(){
 $(".pop").toggle(100);
 $(this).toggleClass("h21");
-
 });
-
-    var wsUri ="ws://localhost/democonfapplet/webservice/"; 
-    var output;  
-    
-    function init() { 
-        output = document.getElementById("output"); 
+$('.btn_d a').click(function(){
+	if(!confid){return;}
+	myobj.method='DismissConf';
+	myobj.params=[confid];
+    doSend(JSON.stringify(myobj));
+		
+});
+   
+	setInterval(function(){ $(".on1").each(function(index, element) {
+        var mydatanum=parseInt($(this).attr('data-num'));
+		alert(mydatanum);
+        if(mydatanum){
+            $(this).attr('data-num',--mydatanum);
+        }else{
+            $(this).removeClass("on1");
+            $(this).find('div').html('挂断');
+            $(this).addClass("on2");
+            $(this).attr('data-num',0);
+        }
+    });},1000);
+    function init() {
+        console.log(wsUri);
         testWebSocket(); 
-    }  
- 
-    function testWebSocket() { 
-        websocket = new WebSocket(wsUri); 
-        websocket.onopen = function(evt) { 
+    }
+    function testWebSocket() {
+        websocket = new WebSocket(wsUri);
+
+        websocket.onopen = function(evt) {
             onOpen(evt) 
-        }; 
+        };
         websocket.onclose = function(evt) { 
             onClose(evt) 
         }; 
-        websocket.onmessage = function(evt) { 
-            onMessage(evt) 
+        websocket.onmessage = function(evt) {
+            var myreturn=onMessage(evt);
+            myreturn= eval('(' + myreturn + ')');
+            if(!confid&&typeof(myreturn.result.confid)!= "undefined"){
+                confid=myreturn.result.confid;
+        		console.log("confid:"+confid);
+            }
         }; 
         websocket.onerror = function(evt) { 
             onError(evt) 
-        }; 
+        };
+
+
     }  
  
-    function onOpen(evt) { 
-        writeToScreen("CONNECTED"); 
-        doSend("WebSocket rocks"); 
+    function onOpen(evt) {
+        console.log("CONNECTED");
+        myobj.method='CreateConf';
+        doSend(JSON.stringify(myobj));
     }  
  
-    function onClose(evt) { 
-        writeToScreen("DISCONNECTED"); 
+    function onClose(evt) {
+        console.log("DISCONNECTED");
+        websocket.close();
     }  
  
-    function onMessage(evt) { 
-        writeToScreen('<span style="color: blue;">RESPONSE: '+ evt.data+'</span>'); 
-        websocket.close(); 
+    function onMessage(evt) {
+        console.log("RESPONSE:" + evt.data);
+        return evt.data;
+        //websocket.close();
     }  
  
-    function onError(evt) { 
-        writeToScreen('<span style="color: red;">ERROR:</span> '+ evt.data); 
+    function onError(evt) {
+        console.log("ERROR:" + evt.data);
     }  
  
-    function doSend(message) { 
-        writeToScreen("SENT: " + message);  
-        websocket.send(message); 
-    }  
- 
-    function writeToScreen(message) { 
-        var pre = document.createElement("p"); 
-        pre.style.wordWrap = "break-word"; 
-        pre.innerHTML = message; 
-        output.appendChild(pre); 
-    }  
- 
-    window.addEventListener("load", init, false);  
-</script> 
-<div id="output"></div>  
+    function doSend(message) {
+        myreturn='';
+        console.log("SENT: " + message);
+        websocket.send(message);
+    }
+    window.addEventListener("load", init, false);
+</script>
 </body>
 </html>
