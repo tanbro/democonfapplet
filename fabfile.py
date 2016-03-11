@@ -53,7 +53,7 @@ def deploy(branch='master', restarting=True):
 
 def start():
     with nested(cd('%s/webservice' % dest_dir), prefix('source %s/bin/activate' % venv_dir)):
-        run('$(nohup python -m confapplet >& /dev/null < /dev/null &) && sleep 5')
+        run('$(nohup python -m confapplet >& /dev/null < /dev/null &) && sleep 1')
 
 
 def stop():
