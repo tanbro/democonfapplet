@@ -3,6 +3,7 @@
 from __future__ import with_statement
 
 import os.path
+from time import sleep
 from contextlib import nested
 
 from fabric.api import local, settings, lcd, env, prefix
@@ -47,7 +48,17 @@ def deploy(branch='master'):
             f.write('date: %s\n' % gitdate)
             f.write('tag: %s\n' % gittag)
     with nested(lcd(dest_dir), prefix('source %s/bin/activate' % venv_dir)):
+        print('install pip pacakges')
         local('pip install --upgrade -r requirements.txt')
+    with lcd(dest_dir):
+        print('install npm pacakges')
         local('npm install')
+        print('bower npm pacakges')
         env['CI'] = 'true'
         local('bower install --allow-root')
+    with nested(lcd('%s/webservice' % dest_dir), prefix('source %s/bin/activate' % venv_dir)):
+        print('kill current process')
+        local('pkill -f confapplet')
+        sleep(5)
+        print('start web service program')
+        local('nohup python -m confapplet > /dev/null 2>&1 &')
